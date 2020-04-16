@@ -14,3 +14,7 @@ to the current task.
 ## Task-model
 We did a task-analysis to create a faceted task model. For each facet a reranking function will be defined. Incoming queries will be
 manually classified into this model, and we compare if this improves our results.
+
+## What's here
+covid-doc2vec.model is a gensim model trained on all paper abstracts (~april 10)
+docscores has the distance of each document to each of the 10 tasks in vector space
