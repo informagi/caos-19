@@ -16,7 +16,7 @@ We did a task-analysis to create a faceted task model. For each facet a rerankin
 manually classified into this model, and we compare if this improves our results.
 
 ## What's here
-prep.py - reads in/cleans the files and indexes them. I used elastic for convenience - should change to Anserini
+prep.py - reads in/cleans the files and indexes them. I used elastic for convenience - should change to Anserini  
 helpers.py - helps prep.py
 constants.py - fulltext searchtask (i.e. Kaggle task) descriptions
 analysis.py - word clouds, clustering, visualisation - used to explore data and see if ranking makes sense
