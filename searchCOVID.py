@@ -1,3 +1,6 @@
+from helpers import *
+from constants import *
+
 import os
 import json
 from pprint import pprint
@@ -6,7 +9,6 @@ from copy import deepcopy
 import numpy as np
 import pandas as pd
 from tqdm.notebook import tqdm
-from helpers import *
 
 #all for the lda part..
 from sklearn.feature_extraction import text
@@ -65,7 +67,7 @@ task_10 = "What has been published about information sharing and inter-sectoral 
 list_of_tasks = [task_1, task_2, task_3, task_4, task_5, task_6, task_7, task_8, task_9, task_10]
 list_of_tasks_short = [task_1_short, task_2_short, task_3_short, task_4_short, task_5_short, task_6_short, task_7_short, task_8_short, task_9_short, task_10_short]
 
-
+list_of_topic_tasks = []
 
 def loaddocs():
 	for file in tqdm(all_files):
