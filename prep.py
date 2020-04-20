@@ -6,7 +6,8 @@ from tqdm.notebook import tqdm
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 import pandas as pd 
-
+import gensim
+from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 def loaddocs():
 	for file in tqdm(all_files):
@@ -57,7 +58,15 @@ def preparedoc2vec(fname, data):
 	else:
 		print("Training doc2vec model " + fname)
 		
-		documents = data['abstract'].values.tolist()
+		#Remove items with bad abstracts
+		docs = data[~data.abstract.isin(["Unknown", "unknown", ""])]
+		#remove items with mising abstracts
+		docs = data[~data.abstract.isnull()]
+		docvals = docs['abstract']
+		docvals = docvals.values.tolist()
+		documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(docvals)]
+		print(documents[0])
+		
 		#this used to be trained on the processedfiles, but abstract is available in metadata in new version
 		#[TaggedDocument(doc[4], [i]) for i, doc in enumerate(cleaned_files)]
 		#print("Sanity check: is this an abstract?")
@@ -90,7 +99,7 @@ def processfiles(readname):
 	loaddocs()
 	
 	#index it in elastic
-	elastic_index(indexName)
+	#elastic_index(indexName)
 	
 def prepTREC(fname):
 	#get valid TREC ids for this round
