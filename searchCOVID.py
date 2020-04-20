@@ -383,7 +383,7 @@ def mixDistancesScores(results, distances, task, gtruths, q, mixer=1):
 	return resultlist
 
 # Performs query, 
-def reranking(results, task, model=preparedoc2vec("./covid-doc2vec.model"), mixer=1):
+def reranking(results, task, model, mixer=1):
 	taskvector = get_doc_vector(model, list_of_tasks[task])
 	#print(task)
 
@@ -534,7 +534,7 @@ indexName = "3-27-4-covid"
 es_client = Elasticsearch(http_compress=True)
 
 #Process the files: clean them and index them
-#processfiles("biorxiv_medrxiv")
+processfiles("biorxiv_medrxiv")
 #processfiles("comm_use_subset")
 #processfiles("pmc_custom_license")
 #processfiles("noncomm_use_subset")
