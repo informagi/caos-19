@@ -7,6 +7,10 @@ The main idea is to (re)rank and compare results based on three levels of contex
 3) Query + domain-specific task model
 
 ## What's here
+readtrec.py - the file that makes the runs
+scores_covid19 - anserini bm25 scores
+topics-rnd1 - the TREC topics for round 1
+
 prep.py - reads in/cleans the files and indexes them. I used elastic for convenience - should change to Anserini  
 helpers.py - helps prep.py  
 constants.py - fulltext searchtask (i.e. Kaggle task) descriptions  
