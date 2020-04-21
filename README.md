@@ -6,6 +6,8 @@ The main idea is to (re)rank and compare results based on three levels of contex
 2) Query + fulltext search task descriptions, based on the tasks at Kaggle
 3) Query + domain-specific task model
 
+In round 1 we're comparing (1) with two ways to do (2).
+
 ## What's here
 readtrec.py - the file that makes the runs
 scores_covid19 - anserini bm25 scores
