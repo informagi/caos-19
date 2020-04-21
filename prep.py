@@ -1,4 +1,5 @@
 from helpers import *
+from constants import *
 import os
 import json
 import numpy as np
@@ -49,7 +50,7 @@ def elastic_index(indexname):
 	helpers.bulk(es_client, elastic_generator(indexname))
 	
 
-
+metadatana = []
 def preparedoc2vec(fname, data):
 	#Check if a model exists
 	if(os.path.isfile(fname)):
@@ -62,10 +63,15 @@ def preparedoc2vec(fname, data):
 		docs = data[~data.abstract.isin(["Unknown", "unknown", ""])]
 		#remove items with mising abstracts
 		docs = data[~data.abstract.isnull()]
+		metadatana = docs
 		docvals = docs['abstract']
 		docvals = docvals.values.tolist()
-		documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(docvals)]
-		print(documents[0])
+		
+		
+		
+		
+		documents = [TaggedDocument(gensim.parsing.preprocess_string(doc), [i]) for i, doc in enumerate(docvals)]
+		#print('NUMBER OF DOCS ' + str(np.array(documents)))
 		
 		#this used to be trained on the processedfiles, but abstract is available in metadata in new version
 		#[TaggedDocument(doc[4], [i]) for i, doc in enumerate(cleaned_files)]
@@ -121,6 +127,41 @@ def prepTREC(fname):
 	
 	return metadata
 
+#Used to store/load scores of docs to the tasks
+def docToTaskScores(fname):
+	scores = []
+	if(os.path.isfile(fname)):
+		print("Loaded document-to-task scores from " + fname)
+		for line in open(fname):
+			scores.append(line.replace("\n", "").split(" "))
+#		print(scores)
+	else:
+		print("Storing document-to-task scores in " + fname)
+		f = open(fname, "a")		
+		
+		for file in cleaned_files:
+			newline = str(file[0])
+			for index, task in enumerate(list_of_tasks):
+				#If there is no abstract, we say it's very far away for now.
+				#Based on assumption that these are less valuable
+				#Alternative: use the last 200 words
+				#print(" ".join(file[5].split(" ")[-200:]))
+				dist = np.linalg.norm(taskvectors[index]-get_doc_vector(model, " ".join(file[5].split(" ")[-200:])))
+				newline += " " + str(dist)
+				
+			f.write(newline + "\n")
+			scores.append(newline.split(" "))
+				
+		f.close()
+	return scores
+
+def get_doc_vector(model, doc):
+    tokens = gensim.parsing.preprocess_string(doc)
+    vector = model.infer_vector(tokens)
+    return vector
+
+
+
 #set up elastic
 indexName = "4-10-covid"
 es_client = Elasticsearch(http_compress=True)
@@ -135,6 +176,17 @@ es_client = Elasticsearch(http_compress=True)
 #processfiles("noncomm_use_subset/pdf_json")
 
 metadata = prepTREC('./docids-rnd1.txt')
+print(metadata[:2]['abstract'])
 
 #Now we train or load a doc2vec model
 model = preparedoc2vec("./covid-doc2vec.model", metadata)
+
+#Now we compute the distance of each doc to each task vector, I guess
+#And store that in docscores
+
+#create a list of the taskvectors
+taskvectors = []
+for task in list_of_tasks:
+	taskvectors.append(get_doc_vector(model, task))
+
+docToTaskScores('docscores')

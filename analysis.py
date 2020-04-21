@@ -1,6 +1,7 @@
-from prep import preparedoc2vec, prepTREC
+from prep import preparedoc2vec, prepTREC, get_doc_vector, docToTaskScores
 from constants import *
 
+import pandas as pd
 import numpy as np
 from tqdm.notebook import tqdm
 from sklearn.cluster import KMeans
@@ -9,7 +10,8 @@ import gensim
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from wordcloud import WordCloud, STOPWORDS 
 import matplotlib.pyplot as plt 
-
+from sklearn.manifold import TSNE
+import plotly.graph_objects as go
 
 def wordcloud(results):
 	big_chungus = []
@@ -90,44 +92,46 @@ def avgDistanceToCluster(kmeans, abstract_vectors):
 
 #printRiskFactors(riskdata, trainshape)
 
-import plotly.graph_objects as go
-def printRiskFactors():
-	riskdata = np.concatenate((model.docvecs.vectors_docs, riskvectors))
-	print(riskdata.shape)
+#def printRiskFactors():
+#	riskdata = np.concatenate((model.docvecs.vectors_docs, riskvectors))
+#	print(riskdata.shape)
 
-	doc2vec_tsne = tsne.fit_transform(riskdata)
-	print(np.array(model.docvecs.vectors_docs).shape)
-	print(np.array(doc2vec_tsne).shape)
+#	doc2vec_tsne = tsne.fit_transform(riskdata)
+#	print(np.array(model.docvecs.vectors_docs).shape)
+#	print(np.array(doc2vec_tsne).shape)
 
-	fig = go.Figure()
-	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
-	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
-	fig.show()
+#	fig = go.Figure()
+#	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
+#	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
+#	fig.show()
 
-def printClusters(abstract_vectors, labels, k=13):
+#def printClusters(abstract_vectors, labels, k=13):
 #	print(np.array(abstract_vectors).shape)
 
 	#the arrays we will store the k=13 clusters
-	clustervectors = []
-	for i in range(k):
-		clustervectors.append([])
+#	clustervectors = []
+#	for i in range(k):
+#		clustervectors.append([])
 	
 	#adding the risk factors to the training set
-	for index, vector in enumerate(abstract_vectors):
-		clustervectors[labels[index]].append(index)
+#	for index, vector in enumerate(abstract_vectors):
+#		clustervectors[labels[index]].append(index)
 	
-	print(np.array(clustervectors).shape)
-	doc2vec_tsne = tsne.fit_transform(abstract_vectors)
+#	print(np.array(clustervectors).shape)
+#	doc2vec_tsne = tsne.fit_transform(abstract_vectors)
 	
-	fig = go.Figure()
-	for cluster in clustervectors:
+#	fig = go.Figure()
+#	for cluster in clustervectors:
 		
 		
-		fig.add_trace(go.Scatter(x=doc2vec_tsne[cluster,0], y=doc2vec_tsne[cluster,1],mode='markers'))
-	fig.show()
+#		fig.add_trace(go.Scatter(x=doc2vec_tsne[cluster,0], y=doc2vec_tsne[cluster,1],mode='markers'))
+#	fig.show()
 	
-def printTasks(abstract_vectors, labels, k=13):
-	#the arrays we will store the k=13 clusters
+
+
+#print clusters and tasks
+#abstract_vectors is all the abstracts, labels is the label for each cluster
+def printClusterTasks(abstract_vectors, labels, k=13):
 	clustervectors = []
 	for i in range(k):
 		clustervectors.append([])
@@ -145,8 +149,7 @@ def printTasks(abstract_vectors, labels, k=13):
 	fig = go.Figure()
 
 	#fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))	
-	
-	
+		
 	alldata = np.concatenate((abstract_vectors, taskvectors))
 	doc2vec_tsne = tsne.fit_transform(alldata)
 	
@@ -159,7 +162,7 @@ def printTasks(abstract_vectors, labels, k=13):
 	
 	fig.show()
 
-
+#Add the riskvectors to the visualization. How do they relate to the other documents?
 def printTasksRisks(abstract_vectors, labels, k=13):
 	#the arrays we will store the k=13 clusters
 	clustervectors = []
@@ -193,22 +196,57 @@ def printTasksRisks(abstract_vectors, labels, k=13):
 	#print tasks
 	fig.add_trace(go.Scatter(x=doc2vec_tsne[abstract_length+risklen:,0], y=doc2vec_tsne[abstract_length+risklen:,1],mode='lines+markers'))
 	
+	#print risktask
+	fig.add_trace(go.Scatter(x=doc2vec_tsne[abstract_length+risklen+1:abstract_length+risklen+2,0], y=doc2vec_tsne[abstract_length+risklen+1:abstract_length+risklen+2,1],mode='lines+markers'))
+	
 	fig.show()
 
-		
+	
+def printSNE1(data):
+	doc2vec_tsne = tsne.fit_transform(data)
+	
+	fig = go.Figure()
+	
+	fig.add_trace(go.Scatter(x=doc2vec_tsne[:,0], y=doc2vec_tsne[:,1],mode='markers'))
+	fig.show()
 
+#print SNE with two document sets
+#data[:trainshape] and data[trainshape:]
 def printSNE2(data, trainshape):
+
+	#lets get the indices of the risk vectors	
+	
+#	risk has ..
+#	metadata.sha.isin()
+
+#	print(riskfactors[1][-30:])
+#	print(metadata['abstract'][1][-30:])
+	
+	rsk = pd.DataFrame(riskfactors_old).dropna(how='any')#.values.tolist()
+	
+	#drop na's; follow approach in prep.py
+	metadatana = metadata[~metadata.abstract.isin(["Unknown", "unknown", ""])]
+	metadatana = metadatana[~metadatana.abstract.isnull()]
+	
+	#print(rsk[0])
+	#print(rsk[1][:2])
+	#metadatana = pd.DataFrame(metadatana)
+	#overlap = metadatana.sha.isin(rsk[0][:])
+	#print(overlap.value_counts())
+
+	#print('test shapes')
+	#print(np.array(overlap).shape)
+	#print(np.array(data).shape)
+	
+	
+#	data = concatenate
 	doc2vec_tsne = tsne.fit_transform(data)
 	
 	fig = go.Figure()
-	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
-	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
-	fig.show()
 	
-def printSNE3(data, trainshape):
-	doc2vec_tsne = tsne.fit_transform(data)
-	
-	fig = go.Figure()
+	#fig.add_trace(go.Scatter(x=doc2vec_tsne[~overlap,0], y=doc2vec_tsne[~overlap:,1],mode='markers'))		
+	#fig.add_trace(go.Scatter(x=doc2vec_tsne[overlap,0], y=doc2vec_tsne[overlap:,1],mode='markers'))
+
 	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
 	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
 	fig.show()
@@ -240,12 +278,31 @@ def getGroundtruth(q, size=1000):
 		ids.append(result.meta.id)
 	return ids	
 
-def get_doc_vector(model, doc):
-    tokens = gensim.parsing.preprocess_string(doc)
-    vector = model.infer_vector(tokens)
-    return vector
 
+def getRisks(filename):
+	abstracts = []
+	fp = open(filename, 'r', encoding='utf-8')
+#	header = fp.readline()
+	for line in fp.readlines():
+		#print((line.split(",")[1:]))
+		#print(",".join(line.split(",")[1:]))
+		abstracts.append([line.split(",")[0], ",".join(line.split(",")[1:])])
+		
+	fp.close()
+	return abstracts
 
+def loadFacetDocs(filename):
+	abstracts = []
+	fp = open(filename, 'r', encoding='utf-8')
+#	header = fp.readline()
+	for line in fp.readlines():
+#		strline = line.split(",")   [7]
+		abstracts.append(line)
+		
+	fp.close()
+	return abstracts
+	
+	
 
 
 #Code execution starts here
@@ -273,36 +330,48 @@ abstract_vectors = model.docvecs.vectors_docs
 kmeans = KMeans(init='k-means++', max_iter=100, random_state=42)
 
 #Elbow method to figure out what we should set K to
-visualizer = KElbowVisualizer(kmeans, k=(2, 32))
-visualizer.fit(abstract_vectors)
-visualizer.show()
+#visualizer = KElbowVisualizer(kmeans, k=(2, 32))
+#visualizer.fit(abstract_vectors)
+#visualizer.show()
 
 # k = 13 from elbow
-kmeans = KMeans(n_clusters=13, init='k-means++', max_iter=100, random_state=42) 
+k = 13
+kmeans = KMeans(n_clusters=k, init='k-means++', max_iter=100, random_state=42) 
 labels = kmeans.fit_predict(abstract_vectors)
 
 
 	
 #load risk factor docs
-riskfactors = loadFacetDocs('risk_abstracts.csv')#('thematic_tagging_output_risk_factors-utf.csv')
+riskfactors_old = loadFacetDocs('./data/risk_abstracts.csv')
+riskfactors = getRisks('./data/risk_sha.csv')
+
 
 riskvectors = []
 for factor in riskfactors:
-	riskvectors.append(get_doc_vector(model, factor))
+	riskvectors.append(get_doc_vector(model, factor[1]))
 
 
 print('start plotting')
 #perplexity of 5 and learning rate of 500 gives good results
 tsne = TSNE(n_components=2, perplexity=5, learning_rate = 500)
-trainshape = np.array(model.docvecs.vectors_docs).shape[0]
+num_abstract = np.array(model.docvecs.vectors_docs).shape[0]
 
+#printSNE1(model.docvecs.vectors_docs)
+#printSNE2(model.docvecs.vectors_docs, num_abstract)
+#printSNE2(np.concatenate((model.docvecs.vectors_docs, riskvectors)), num_abstract)
+#printClusterTasks(abstract_vectors, labels, k)
+printTasksRisks(abstract_vectors, labels, k)
 
+#print("Check dit")
+#print(abstract_vectors[0:2])
+#print(list_of_tasks[0:2])
+#print(riskfactors[0:2])
 
 
 
 #So get all documents in the golden cluster
-print('Analysis of trace6')
-trace6 = abstract_vectors[labels==6]
+#print('Analysis of trace6')
+#trace6 = abstract_vectors[labels==6]
 
 #analyze6()
 

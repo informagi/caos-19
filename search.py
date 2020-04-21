@@ -1,3 +1,9 @@
+from constants import *
+from elasticsearch import Elasticsearch
+from elasticsearch import helpers
+from elasticsearch_dsl.query import MultiMatch
+from elasticsearch_dsl import Search, Q
+
 #for elastic response (list of hits)
 def countGTruth(results, gtruth):
 	counter = 0
@@ -14,7 +20,21 @@ def countGTruthNP(results, gtruth):
 			counter += 1
 	return counter
 
+def compareSearch(results1, results2, title1="BM25", title2="fulltext", numresults = 10):
+	print("Comparing " + title1 + " and " + title2)
+	print("\n" + title1)
+	printtop(results_bm25, numresults)
+	print("\n" + title2)
+	printtop(results_reranked, numresults)
 
+
+def getGroundtruth(q, size=1000):
+	results = query(q, size)
+	ids = []
+	for result in results:
+#		print(result.meta.id)
+		ids.append(result.meta.id)
+	return ids
 
 #first attempt at reranking: get query, rerank top 1000 based on how close to the task they are in doc2vec space
 # Performs query, 
@@ -99,10 +119,6 @@ def query(q, size=1000):
 	return response
 
 
-def get_doc_vector(model, doc):
-    tokens = gensim.parsing.preprocess_string(doc)
-    vector = model.infer_vector(tokens)
-    return vector
 
 #Should probably collect all id's before querying, but this works for now
 def get_doc_score(q, fileid):
@@ -254,6 +270,34 @@ def mixDistancesScores(results, distances, task, gtruths, q, mixer=1):
 	print(resultlist)#[0:5][3]
 	
 	return resultlist
+
+
+#NOTE the highlighter returns multiple sentencess
+def printtop(results, num):
+	for i in range(0, num):
+		print("\n" + str(i))
+		print("TITLE  " + results[i]['title'])
+		if(hasattr(results[i].meta, "highlight")):
+			if(hasattr(results[i].meta.highlight, "abstract")):
+				print("ABSTRACT  " + results[i].meta.highlight.abstract[0])
+			if(hasattr(results[i].meta.highlight, "fulltext")):
+				print("FULLTEXT  " + results[i].meta.highlight.fulltext[0])
+			
+		
+#		print(results[i].meta.highlight.abstract)
+#		print(results[i].meta.highlight.fulltext)
+#		for field in results[i].meta.highlight:
+#			print(field)
+#		if(hasattr(results[i].highlight, 'highlight')):
+#			print(results[i].meta)
+		#print(' ' + results[i]['abstract'][0:50])
+		#print()
+
+
+
+#set up elastic
+indexName = "4-10-covid"
+es_client = Elasticsearch(http_compress=True)
 
 
 
