@@ -15,7 +15,7 @@ prep.py - reads in/cleans the files and indexes them. I used elastic for conveni
 helpers.py - helps prep.py  
 constants.py - fulltext searchtask (i.e. Kaggle task) descriptions  
 analysis.py - word clouds, clustering, visualisation - used to explore data and see if ranking makes sense  
-search.py - the (re)ranking and searching
+search.py - trying stuff with (re)ranking and searching
 
 docscores - has the distance of each document to each of the 10 tasks in vector space  
 covid-doc2vec.model - gensim doc2vec model trained on all paper abstracts (april 10 version)
