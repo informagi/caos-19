@@ -1,4 +1,4 @@
-#helper functions
+#helper functions for parsing/indexing the documents
 #https://www.kaggle.com/xhlulu/cord-19-eda-parse-json-and-generate-clean-csv
 import os
 import json

@@ -12,10 +12,10 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 def loaddocs():
 	for file in tqdm(all_files):
-		#Not all filetypes have abstracts! E.g. expert reviews
+		#Not all filetypes have abstracts! E.g. expert reviews   MIGHT crash now  and should just be abstr then
 		abstr = [{'text':''}]
 		if 'abstract' in file:
-			abstr = file['abstract']
+			abstr = format_body(file['abstract'])
 		features = [
 			file['paper_id'],
 			file['metadata']['title'],
