@@ -20,7 +20,7 @@ topics-rnd1 - the TREC topics for round 1
 
 # Run descriptions:
 
-##Manual run RUIR-doc2vec 
+## Manual run RUIR-doc2vec 
 We interpreted the Kaggle tasks[0] as descriptions of search tasks, and boosted documents relevant to the given search task. 
 
 TREC topics were manually classified into the most appropriate searchtask/kaggle task (in topic order: [2,0,3,0,3,7,3,7,6,5,4,5,0,0,0,0,7,5,5,1,0,0,1,1,1,7,7,3,3,3], referring to tasks in the order of the Kaggle tasks page accessed 4/23). 
@@ -30,7 +30,7 @@ To find out which documents are relevant to which tasks, we trained a doc2vec mo
 [0] https%3A//www.kaggle.com/allen-institute-for-ai/CORD-19-resear
 ch-challenge/tasks
 
-##(Manual) RUIR-bm25-mt-exp 
+## (Manual) RUIR-bm25-mt-exp 
 
 We interpreted the Kaggle tasks[0] as descriptions of search tasks, and performed query expansion using keywords typical for a given search task.
 
@@ -43,7 +43,7 @@ These keywords were used as expansion terms to enrich the topic query of the cor
 [0] https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks
 
 
-##(Automatic) run RUIR-bm25-at-exp
+## (Automatic) run RUIR-bm25-at-exp
 We interpreted the Kaggle tasks[0] as descriptions of search tasks, and performed query expansion using keywords typical for a given search task.
 
 TREC topics were automatically classified into the most appropriate searchtask/kaggle task by indexing the fulltext of the tasks and ranking them based on the topic.query. The top result was selected as the classification.
