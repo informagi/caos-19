@@ -1,3 +1,8 @@
+#to load all/a subset of files, uncomment the lines that call processfiles()
+#to index in elastic, uncomment the elastic_index line at 111
+#the doc2vec model is based on the abstracts in metadata.csv - does not need all files
+#to rebuild it, delete it and run this file
+
 from helpers import *
 from constants import *
 import os
@@ -176,7 +181,6 @@ es_client = Elasticsearch(http_compress=True)
 #processfiles("noncomm_use_subset/pdf_json")
 
 metadata = prepTREC('./docids-rnd1.txt')
-print(metadata[:2]['abstract'])
 
 #Now we train or load a doc2vec model
 model = preparedoc2vec("./covid-doc2vec.model", metadata)
@@ -189,4 +193,5 @@ taskvectors = []
 for task in list_of_tasks:
 	taskvectors.append(get_doc_vector(model, task))
 
-docToTaskScores('docscores')
+#doc2task scores are not used anymore; were used to find the 1000 docs closest to a task
+#docToTaskScores('docscores')
