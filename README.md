@@ -4,8 +4,6 @@ Experimenting with using search task context to improve search results in the TR
 
 ## What's here
 readtrec.py - the file that makes the doc2vec run (Chris has code for the others)  
-anserini_bm25.txt - anserini bm25 scores  
-topics-rnd1 - the TREC topics for round 1  
 classifydocs.py - the document classifying  
 constants.py - fulltext searchtask (i.e. Kaggle task) descriptions  
 
@@ -16,6 +14,8 @@ search.py - where I tried out some stuff with (re)ranking and searching
 
 docscores - has the distance of each document to each of the 10 tasks in vector space  
 covid-doc2vec.model - gensim doc2vec model trained on all paper abstracts (april 10 version)
+anserini_bm25.txt - anserini bm25 scores  
+topics-rnd1 - the TREC topics for round 1  
 
 
 # Run descriptions:
