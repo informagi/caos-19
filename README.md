@@ -3,7 +3,8 @@
 Experimenting with using search task context to improve search results in the TREC COVIDsearch track. Dataset is CORD-19: a collection of research papers about the virus. See the run descriptions below. The code is slightly messy.
 
 ## What's here
-readtrec.py - the file that makes the doc2vec run (Chris has code for the others)  
+readtrec.py - the file that makes the doc2vec run
+covid_search_task_expansion.py - file for creating runs using expanded queries using search tasks
 classifydocs.py - the document classifying  
 constants.py - fulltext searchtask (i.e. Kaggle task) descriptions  
 
