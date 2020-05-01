@@ -17,7 +17,7 @@ about the virus. See the run descriptions below. The code is slightly messy.
 | `covid-doc2vec.model` | gensim doc2vec model trained on all paper abstracts (2020-04-10 version) |
 | `anserini_bm25.txt` | anserini bm25 scores |
 | `topics-rnd1` | the TREC topics for round 1 |
-| [`anomalies.md`][1] | documents anomalies found in the dataset |
+| [`anomalies.md`](./anomalies.md) | documents anomalies found in the dataset |
 
 # Run descriptions:
 
@@ -78,4 +78,3 @@ appending these keywords to the query. Using this enriched query we ranked the
 documents using Anserini bm25 (fulltext+title+abstract).
 
 [0]: https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks
-[1]: ../blob/master/anomalies.md
