@@ -1,4 +1,4 @@
-from prep import preparedoc2vec, prep_trec, get_doc_vector
+from prep import prepare_doc2vec, prep_trec, get_doc_vector
 import numpy as np
 import xml.etree.ElementTree as Et
 
@@ -85,7 +85,7 @@ results = read_anserini("anserini_bm25.txt")
 write_bm25_results(results, "RUIR-bm25")
 
 # Now we train or load a doc2vec model
-model = preparedoc2vec("./covid-doc2vec.model", prep_trec('./docids-rnd1.txt'))
+model = prepare_doc2vec("./covid-doc2vec.model", prep_trec('./docids-rnd1.txt'))
 
 results_reranked = rerank(results, model, topics, mixer=1)
 write_bm25_results(results_reranked, "RUIR-doc2vec")

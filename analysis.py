@@ -7,10 +7,10 @@ from sklearn.manifold import TSNE
 from wordcloud import WordCloud, STOPWORDS
 
 from constants import *
-from prep import preparedoc2vec, prep_trec, get_doc_vector
+from prep import prepare_doc2vec, prep_trec, get_doc_vector
 
 
-def wordcloud(results):
+def word_cloud(results):
     big_chungus = []
     for result in results:
         big_chungus.append(result['title'] + ' ' + result['abstract'])
@@ -30,19 +30,20 @@ def wordcloud(results):
         for words in tokens:
             comment_words = comment_words + words + ' '
 
-    wordcloud = WordCloud(width=800, height=800,
-                          background_color='white',
-                          stopwords=stopwords,
-                          min_font_size=30).generate(comment_words)
+    wc = WordCloud(width=800,
+                   height=800,
+                   background_color='white',
+                   stopwords=stopwords,
+                   min_font_size=30).generate(comment_words)
 
     # plot the WordCloud image
     plt.figure(figsize=(8, 8), facecolor=None)
-    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
     plt.tight_layout(pad=0)
 
 
-def printdistances(kmeans, taskvectors):
+def print_distances(kmeans, taskvectors):
     print('task cluster1 cluster2 etc')
     for index, task in enumerate(taskvectors):
         print(index)
@@ -55,11 +56,10 @@ def printdistances(kmeans, taskvectors):
         print(line)
 
 
-def avgDistanceToCluster(kmeans, abstract_vectors):
+def average_distance_to_cluster(kmeans, abstract_vectors):
     sumdistances = []
-    numdistances = 0
 
-    for index, cluster in enumerate(kmeans.cluster_centers_):
+    for _ in kmeans.cluster_centers_:
         sumdistances.append(0)
 
     for vector in abstract_vectors:
@@ -83,46 +83,46 @@ def avgDistanceToCluster(kmeans, abstract_vectors):
 
 
 # printRiskFactors(riskdata, trainshape)
-
+#
 # def printRiskFactors():
-#	riskdata = np.concatenate((model.docvecs.vectors_docs, riskvectors))
-#	print(riskdata.shape)
-
-#	doc2vec_tsne = tsne.fit_transform(riskdata)
-#	print(np.array(model.docvecs.vectors_docs).shape)
-#	print(np.array(doc2vec_tsne).shape)
-
-#	fig = go.Figure()
-#	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
-#	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
-#	fig.show()
-
+# 	riskdata = np.concatenate((model.docvecs.vectors_docs, riskvectors))
+# 	print(riskdata.shape)
+#
+# 	doc2vec_tsne = tsne.fit_transform(riskdata)
+# 	print(np.array(model.docvecs.vectors_docs).shape)
+# 	print(np.array(doc2vec_tsne).shape)
+#
+# 	fig = go.Figure()
+# 	fig.add_trace(go.Scatter(x=doc2vec_tsne[:trainshape,0], y=doc2vec_tsne[:trainshape,1],mode='markers'))
+# 	fig.add_trace(go.Scatter(x=doc2vec_tsne[trainshape:,0], y=doc2vec_tsne[trainshape:,1],mode='markers'))
+# 	fig.show()
+#
 # def printClusters(abstract_vectors, labels, k=13):
-#	print(np.array(abstract_vectors).shape)
-
+# 	print(np.array(abstract_vectors).shape)
+#
 # the arrays we will store the k=13 clusters
-#	clustervectors = []
-#	for i in range(k):
-#		clustervectors.append([])
-
+# 	clustervectors = []
+# 	for i in range(k):
+# 		clustervectors.append([])
+#
 # adding the risk factors to the training set
-#	for index, vector in enumerate(abstract_vectors):
-#		clustervectors[labels[index]].append(index)
-
-#	print(np.array(clustervectors).shape)
-#	doc2vec_tsne = tsne.fit_transform(abstract_vectors)
-
-#	fig = go.Figure()
-#	for cluster in clustervectors:
-
-
-#		fig.add_trace(go.Scatter(x=doc2vec_tsne[cluster,0], y=doc2vec_tsne[cluster,1],mode='markers'))
-#	fig.show()
+# 	for index, vector in enumerate(abstract_vectors):
+# 		clustervectors[labels[index]].append(index)
+#
+# 	print(np.array(clustervectors).shape)
+# 	doc2vec_tsne = tsne.fit_transform(abstract_vectors)
+#
+# 	fig = go.Figure()
+# 	for cluster in clustervectors:
+#
+#
+# 		fig.add_trace(go.Scatter(x=doc2vec_tsne[cluster,0], y=doc2vec_tsne[cluster,1],mode='markers'))
+# 	fig.show()
 
 
 # print clusters and tasks
 # abstract_vectors is all the abstracts, labels is the label for each cluster
-def printClusterTasks(abstract_vectors, labels, k=13):
+def print_cluster_tasks(abstract_vectors, labels, k=13):
     clustervectors = []
     for i in range(k):
         clustervectors.append([])
@@ -154,7 +154,7 @@ def printClusterTasks(abstract_vectors, labels, k=13):
 
 
 # Add the riskvectors to the visualization. How do they relate to the other documents?
-def printTasksRisks(abstract_vectors, labels, k=13):
+def print_tasks_risks(abstract_vectors, labels, k=13):
     # the arrays we will store the k=13 clusters
     clustervectors = []
     for i in range(k):
@@ -196,7 +196,7 @@ def printTasksRisks(abstract_vectors, labels, k=13):
     fig.show()
 
 
-def printSNE1(data):
+def print_sne_1(data):
     doc2vec_tsne = tsne.fit_transform(data)
 
     fig = go.Figure()
@@ -207,7 +207,7 @@ def printSNE1(data):
 
 # print SNE with two document sets
 # data[:trainshape] and data[trainshape:]
-def printSNE2(data, trainshape):
+def print_sne_2(data, trainshape):
     # lets get the indices of the risk vectors
 
     #	risk has ..
@@ -245,27 +245,27 @@ def printSNE2(data, trainshape):
     fig.show()
 
 
-def analyze6():
-    print(np.array(trace6).shape)
+# def analyze6():
+#     print(np.array(trace6).shape)
+#
+#     kmeans = KMeans(init='k-means++', max_iter=100, random_state=42)
+#
+#     # Elbow method to figure out what we should set K to
+#     # visualizer = KElbowVisualizer(kmeans, k=(2, 32))
+#     # visualizer.fit(trace6)
+#     # visualizer.show()
+#
+#     # k = 24 from elbow analysis
+#     kmeans6 = KMeans(n_clusters=24, init='k-means++', max_iter=100, random_state=42)
+#     labels6 = kmeans6.fit_predict(trace6)
+#
+#     # printSNE2(np.concatenate((trace6, riskvectors)), np.array(trace6).shape[0])
+#     #	printClusters(trace6, labels6, 24)
+#     print_tasks_risks(trace6, labels6, 24)
 
-    kmeans = KMeans(init='k-means++', max_iter=100, random_state=42)
 
-    # Elbow method to figure out what we should set K to
-    # visualizer = KElbowVisualizer(kmeans, k=(2, 32))
-    # visualizer.fit(trace6)
-    # visualizer.show()
-
-    # k = 24 from elbow analysis
-    kmeans6 = KMeans(n_clusters=24, init='k-means++', max_iter=100, random_state=42)
-    labels6 = kmeans6.fit_predict(trace6)
-
-    # printSNE2(np.concatenate((trace6, riskvectors)), np.array(trace6).shape[0])
-    #	printClusters(trace6, labels6, 24)
-    printTasksRisks(trace6, labels6, 24)
-
-
-def getGroundtruth(q, size=1000):
-    results = query(q, size)
+def get_ground_truth(q, size=1000):
+    results = q(q, size)
     ids = []
     for result in results:
         #		print(result.meta.id)
@@ -273,7 +273,7 @@ def getGroundtruth(q, size=1000):
     return ids
 
 
-def getRisks(filename):
+def get_risks(filename):
     abstracts = []
     fp = open(filename, 'r', encoding='utf-8')
     #	header = fp.readline()
@@ -286,7 +286,7 @@ def getRisks(filename):
     return abstracts
 
 
-def loadFacetDocs(filename):
+def load_facet_docs(filename):
     abstracts = []
     fp = open(filename, 'r', encoding='utf-8')
     #	header = fp.readline()
@@ -306,7 +306,7 @@ def loadFacetDocs(filename):
 
 metadata = prep_trec('./docids-rnd1.txt')
 # Now we load the doc2vec model
-model = preparedoc2vec("./covid-doc2vec.model", metadata)
+model = prepare_doc2vec("./covid-doc2vec.model", metadata)
 
 # create a list of the taskvectors
 taskvectors = []
@@ -317,7 +317,7 @@ print("Starting clustering")
 # Let's do a cluster analysis: do we recognize these in the task model?
 # based on https://www.kaggle.com/luisblanche/cord-19-use-doc2vec-to-match-articles-to-tasks#5.-Clustering-and-visualisation
 abstract_vectors = model.docvecs.vectors_docs
-kmeans = KMeans(init='k-means++', max_iter=100, random_state=42)
+#kmeans = KMeans(init='k-means++', max_iter=100, random_state=42)
 
 # Elbow method to figure out what we should set K to
 # visualizer = KElbowVisualizer(kmeans, k=(2, 32))
@@ -330,8 +330,8 @@ kmeans = KMeans(n_clusters=k, init='k-means++', max_iter=100, random_state=42)
 labels = kmeans.fit_predict(abstract_vectors)
 
 # load risk factor docs
-riskfactors_old = loadFacetDocs('./data/risk_abstracts.csv')
-riskfactors = getRisks('./data/risk_sha.csv')
+riskfactors_old = load_facet_docs('./data/risk_abstracts.csv')
+riskfactors = get_risks('./data/risk_sha.csv')
 
 riskvectors = []
 for factor in riskfactors:
@@ -346,7 +346,7 @@ num_abstract = np.array(model.docvecs.vectors_docs).shape[0]
 # printSNE2(model.docvecs.vectors_docs, num_abstract)
 # printSNE2(np.concatenate((model.docvecs.vectors_docs, riskvectors)), num_abstract)
 # printClusterTasks(abstract_vectors, labels, k)
-printTasksRisks(abstract_vectors, labels, k)
+print_tasks_risks(abstract_vectors, labels, k)
 
 # print("Check dit")
 # print(abstract_vectors[0:2])

@@ -18,7 +18,7 @@ to rebuild it, delete it and run this file
 '''
 
 
-def loaddocs():
+def load_docs():
     for file in tqdm(all_files):
         # Not all filetypes have abstracts! E.g. expert reviews   MIGHT crash now  and should just be abstr then
         abstr = [{'text': ''}]
@@ -61,7 +61,7 @@ def elastic_index(indexname):
 metadatana = []
 
 
-def preparedoc2vec(fname, data):
+def prepare_doc2vec(fname, data):
     # Check if a model exists
     if os.path.isfile(fname):
         print("Loaded doc2vec model " + fname)
@@ -97,7 +97,7 @@ all_files = []
 cleaned_files = []
 
 
-def processfiles(read_name):
+def process_files(read_name):
     read_dir = './data/' + read_name + "/"
     file_names = os.listdir(read_dir)
     print("Number of articles retrieved from " + read_name + ":", len(file_names))
@@ -108,7 +108,7 @@ def processfiles(read_name):
         all_files.append(file)
 
     # load and clean the documents
-    loaddocs()
+    load_docs()
 
 # index it in elastic
 # elastic_index(indexName)
@@ -183,7 +183,7 @@ es_client = Elasticsearch(http_compress=True)
 metadata = prep_trec('./docids-rnd1.txt')
 
 # Now we train or load a doc2vec model
-model = preparedoc2vec("./covid-doc2vec.model", metadata)
+model = prepare_doc2vec("./covid-doc2vec.model", metadata)
 
 # Now we compute the distance of each doc to each task vector, I guess
 # And store that in docscores
