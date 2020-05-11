@@ -1,13 +1,10 @@
-#helper functions for parsing/indexing the documents
-#https://www.kaggle.com/xhlulu/cord-19-eda-parse-json-and-generate-clean-csv
-import os
-import json
-from pprint import pprint
 from copy import deepcopy
 
-import numpy as np
-import pandas as pd
-from tqdm.notebook import tqdm
+'''
+helper functions for parsing/indexing the documents
+https://www.kaggle.com/xhlulu/cord-19-eda-parse-json-and-generate-clean-csv
+'''
+
 
 def format_name(author):
     middle_name = " ".join(author['middle'])
@@ -29,6 +26,7 @@ def format_affiliation(affiliation):
         text = [institution] + text
     return ", ".join(text)
 
+
 def format_authors(authors, with_affiliation=False):
     name_ls = []
     
@@ -44,6 +42,7 @@ def format_authors(authors, with_affiliation=False):
             name_ls.append(name)
     
     return ", ".join(name_ls)
+
 
 def format_body(body_text):
     texts = [(di['section'], di['text']) for di in body_text]
@@ -61,6 +60,7 @@ def format_body(body_text):
         body += "\n\n"
     
     return body
+
 
 def format_bib(bibs):
     if type(bibs) == dict:
