@@ -4,7 +4,8 @@ import xml.etree.ElementTree as ET
 #in constants, add manually added class
 
 #taken as output from queryclassification.py
-rnd1classes = [2,0,3,0,3,6,3,6,7,5,4,5,0,0,0,0,6,5,5,1,0,0,1,1,1,6,6,3,3,3]
+#rnd1classes = [2,0,3,0,3,6,3,6,7,5,4,5,0,0,0,0,6,5,5,1,0,0,1,1,1,6,6,3,3,3]
+rnd1classes = [2,0,3,0,3,6,3,6,7,5,4,5,0,0,0,0,3,5,5,1,0,0,1,1,6,6,6,3,3,3]
 
 def readTopics(fname):
 	root = ET.parse(fname).getroot()
