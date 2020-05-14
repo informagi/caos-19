@@ -1,3 +1,5 @@
+#outdated file used for analysis before
+"""
 from prep import preparedoc2vec, prepTREC, get_doc_vector, docToTaskScores
 from constants import *
 
