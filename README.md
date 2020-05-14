@@ -6,18 +6,10 @@ about the virus. See the run descriptions below. The code is slightly messy.
 ## What's here
 | Filename | Description |
 | --- | --- |
-| `readtrec.py` | the file that makes the doc2vec run |
-| `covid_search_task_expansion.py` | file for creating runs using expanded queries using search tasks |
-| `classifydocs.py` | the document classifying |
+| `covid_search_task_expansion.py` | file for creating runs using expanded queries using search tasks (rounds 1 and 2) |
+| `classifydocs.py` | the document classifying topics into kaggle tasks |
 | `constants.py` | fulltext searchtask (i.e. Kaggle task) descriptions |
-| `prep.py` | reads in/cleans the files and indexes them. I used elastic for convenience - should change to Anserini |
-| `helpers.py` | helps `prep.py` |
-| `analysis.py` | word clouds, clustering, visualisation - used to explore data and see if ranking makes sense |
-| `search.py` | where I tried out some stuff with (re)ranking and searching |
-| `docscores` | has the distance of each document to each of the 10 tasks in vector space |
-| `covid-doc2vec.model` | gensim doc2vec model trained on all paper abstracts (2020-04-10 version) |
-| `anserini_bm25.txt` | anserini bm25 scores |
-| `topics-rnd1` | the TREC topics for round 1 |
+| `round1code.py` | the file that makes the doc2vec run (round 1) |
 | [`anomalies.md`](./anomalies.md) | documents anomalies found in the dataset |
 
 # Run descriptions:
