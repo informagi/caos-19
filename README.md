@@ -15,6 +15,8 @@ about the virus. See the run descriptions below. The code is slightly messy.
 
 # Run descriptions:
 
+## Round 2 runs
+
 ## (Manual) ru-t-exp-rnd2
 Anserini bm25 (title+abstract+paragraph index) using query expansion based on Kaggle task descriptions. TREC topics were manually classified into Kaggle tasks, and the top 10 keywords of the task were extracted based on TF-IDF (using paper abstracts as a corpus).
 
@@ -40,7 +42,7 @@ Query terms were weighted as
 .6 * topic_query + .25 * topic_narrative + .15 task_description
 Weights were selected by trial
 
-## Round2 runs
+## Round 1 runs
 
 ## (Manual) run RUIR-doc2vec
 We interpreted the [Kaggle tasks][0] as descriptions of search tasks, and
