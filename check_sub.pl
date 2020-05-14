@@ -17,7 +17,7 @@ use strict;
 
 # Change these variable values to the full path of the file containing
 # the set of valid docids and the directory where the error log should be put
-my $docno_loc = "./docids-rnd1.txt";
+my $docno_loc = "/docids-rnd2.txt";
 my $errlog_dir = ".";
 
 # If more than MAX_ERRORS errors, then stop processing; something drastically
@@ -26,7 +26,7 @@ my $MAX_ERRORS = 25;
 # May return up to MAX_RET documents per topic
 my $MAX_RET = 1000;
 
-my @topics = (1..30);
+my @topics = (1..35);
 
 my %valid_ids;			# set of all valid ids in document set
 my %numret;                     # number of docs retrieved per topic
@@ -189,4 +189,3 @@ sub error {
 	exit 255;
     }
 }
-
