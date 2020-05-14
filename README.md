@@ -6,13 +6,41 @@ about the virus. See the run descriptions below. The code is slightly messy.
 ## What's here
 | Filename | Description |
 | --- | --- |
-| `covid_search_task_expansion.py` | file for creating runs using expanded queries using search tasks (rounds 1 and 2) |
 | `classifydocs.py` | the document classifying topics into kaggle tasks |
 | `constants.py` | fulltext searchtask (i.e. Kaggle task) descriptions |
+| `covid_search_task_expansion.py` | file for creating runs using expanded queries using search tasks (rounds 1 and 2) |
 | `round1code.py` | the file that makes the doc2vec run (round 1) |
+| `round2-run2.py` | task-based query expansion based on qrels from round1 |
 | [`anomalies.md`](./anomalies.md) | documents anomalies found in the dataset |
 
 # Run descriptions:
+
+## (Manual) ru-t-exp-rnd2
+Anserini bm25 (title+abstract+paragraph index) using query expansion based on Kaggle task descriptions. TREC topics were manually classified into Kaggle tasks, and the top 10 keywords of the task were extracted based on TF-IDF (using paper abstracts as a corpus).
+
+Query terms were weighted as
+a * topic_query + (1-a) * task_terms
+
+i.e. the weights of the terms in the topic query add to 'a'
+a=.8 was selected by optimizing towards both high precision on known qrels and a high number of unknown qrels.
+
+##ru-tw-exp-rnd2
+Anserini bm25 (title+abstract+paragraph index) using query expansion based on Kaggle task descriptions. TREC topics were manually classified into Kaggle tasks. All relevant documents associated with a topic in a given task was associated with that task. Based on TF-IDF (with paper abstracts as corpus) we selected n=50 keywords that characterized this task.
+
+Words that occurred in more than 3 tasks were removed as stopwords, leaving a much smaller set of terms with tf-idf score.
+
+Query terms were weighted as
+a * topic_query + (1-a) * task_terms
+a=.8 was selected because we use it in our run ruir-t-exp-rnd2. The task terms were normalized to add to 1-a based on their tf-idf scores
+
+##ru-tn-exp-rnd2
+Anserini bm25 (title+abstract+paragraph index) using query expansion based on Kaggle task descriptions. TREC topics were manually classified into Kaggle tasks, and the top 10 keywords of the task were extracted based on TF-IDF (using paper abstracts as a corpus).
+
+Query terms were weighted as
+.6 * topic_query + .25 * topic_narrative + .15 task_description
+Weights were selected by trial
+
+## Round2 runs
 
 ## (Manual) run RUIR-doc2vec
 We interpreted the [Kaggle tasks][0] as descriptions of search tasks, and
