@@ -1,5 +1,5 @@
-#outdated file used for analysis before
-"""
+#word clouds, doc2vec, clustering and visualization
+
 from prep import preparedoc2vec, prepTREC, get_doc_vector, docToTaskScores
 from constants import *
 

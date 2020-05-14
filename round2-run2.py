@@ -1,3 +1,5 @@
+#generates the run for round2
+
 import numpy as np
 from time import sleep
 from prep import prepTREC
