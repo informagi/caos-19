@@ -9,6 +9,8 @@ about the virus. See the run descriptions below. The code is slightly messy.
 | `classifydocs.py` | the document classifying topics into kaggle tasks |
 | `constants.py` | fulltext searchtask (i.e. Kaggle task) descriptions |
 | `covid_search_task_expansion.py` | file for creating runs using expanded queries using search tasks (rounds 1 and 2) |
+| `helpers.py` | file to help clean and index documents |
+| `prep.py` | file used to prepare analysis in round 1, with some functions still used |
 | `round1code.py` | the file that makes the doc2vec run (round 1) |
 | `round2-run2.py` | task-based query expansion based on qrels from round1 |
 | `weighted-terms.txt` | kaggle-task based query terms. tf idf weights compared to paper abstracts |
