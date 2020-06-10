@@ -1,0 +1,141 @@
+-2.2923327165296943 Nature
+-1.9071693207388827 Emerging infectious diseases
+-1.803193846853718 BMJ
+-1.5835045304075959 Journal of clinical microbiology
+-1.57194370800652 Veterinary Microbiology
+-1.3589231643237587 Virology
+-1.3235320393835752 Journal of virology
+-1.2035727243045964 Front Immunol
+-1.1474024528375417 Virus Research
+-1.0094167098636389 Nucleic Acids Res
+-0.9796410473749169 Sci Rep
+-0.8845936451309006 The Pediatric infectious disease journal
+-0.8372475245337022 Respirology
+-0.8342126208385482 Proceedings of the National Academy of Sciences of the United States of America
+-0.8311684784573199 Gastroenterology
+-0.8311684784573199 The Journal of biological chemistry
+-0.7658905857518702 PLoS One
+-0.7352483565785808 Journal of medical virology
+-0.7352483565785808 Radiology
+-0.6439569363691735 J Vet Intern Med
+-0.5833323145527387 Nat Med
+-0.510425543744651 Infect Genet Evol
+-0.4934759854308776 Circulation
+-0.48489224173948614 J. med. virol
+-0.4226499328622652 Anesthesiology
+-0.4226499328622652 Front Microbiol
+-0.4134332777573414 Vaccine
+-0.3562748639173927 JAMA
+-0.34889475661977015 Virol J
+-0.3364722366212129 PLoS Pathog
+-0.30601302913650447 JMIR Public Health Surveill
+-0.2956502421009579 Resuscitation
+-0.2639015437863774 Arch Virol
+-0.2449050430957225 Science
+-0.20863886511132804 Psychiatry Res
+-0.1972101692877053 BMC Genomics
+-0.1856493468866293 CMAJ : Canadian Medical Association journal = journal de l'Association medicale canadienne
+-0.1856493468866293 Influenza Other Respir Viruses
+-0.173953307123438 Epidemiology and infection
+-0.173953307123438 Infection control and hospital epidemiology
+-0.16805358499624973 Open Forum Infect Dis
+-0.16805358499624973 The Lancet
+-0.14410034397375687 Virus Res
+-0.1380212978973746 Ecohealth
+-0.11332868530700312 Chinese medical journal
+-0.11332868530700312 Clin. infect. dis
+-0.10580041888621158 Emerg Infect Dis
+-0.10074990310014315 AJR. American journal of roentgenology
+-0.08801087732271333 Trials
+-0.07510747248680534 Disaster medicine and public health preparedness
+-0.03536714383729125 Rev Med Virol
+-0.021761491781512748 The Lancet. Infectious diseases
+-0.007968169649176958 Antimicrobial agents and chemotherapy
+0.006018072325562945 J Virol
+0.03459144476961908 Urology
+0.07904320734045288 Eur J Clin Microbiol Infect Dis
+0.08664780672567216 Viruses
+0.09431067947124142 Can J Anaesth
+0.09431067947124142 J. infect
+0.09431067947124142 Prev Vet Med
+0.10861366466157242 Lancet
+0.10981486600720661 Bioorganic & Medicinal Chemistry
+0.12556322297534575 Infect Dis Clin North Am
+0.13353139262452257 Molecules
+0.15782408519356717 Ann Intensive Care
+0.19116050546115898 Immunology
+0.19116050546115898 MMWR Morb Mortal Wkly Rep
+0.20825493882045915 mBio
+0.21257459996497552 Journal of Clinical Virology
+0.22564668153232822 American journal of public health
+0.22564668153232822 Infect Control Hosp Epidemiol
+0.22564668153232822 Nat Commun
+0.24334625863172918 Clinical Infectious Diseases
+0.24334625863172918 Zhonghua Liu Xing Bing Xue Za Zhi
+0.2587707289573608 BMC Infect Dis
+0.29840603581475655 Travel Medicine and Infectious Disease
+0.3174542307854511 Viral immunology
+0.3368723166425526 The Journal of hospital infection
+0.3566749439387324 Advances in Virus Research
+0.3566749439387324 Chin Med J (Engl)
+0.3566749439387324 Diagn Microbiol Infect Dis
+0.3566749439387324 Emerg. infect. dis
+0.39749693845898737 BMC Public Health
+0.41855034765681975 Antiviral Res
+0.43078291609245417 J Infect Dis
+0.4620354595965588 Ann Emerg Med
+0.4732087601946838 Asian J Psychiatr
+0.4997757875794058 Journal of Virological Methods
+0.5191938734365074 Respir Res
+0.5191938734365074 Zhonghua liu xing bing xue za zhi = Zhonghua liuxingbingxue zazhi
+0.5270679298674131 Chest
+0.5430045221302259 Biomed Res Int
+0.605136303237232 FEBS Lett
+0.6443570163905133 Building and Environment
+0.7038711439229209 New Scientist
+0.7229193388936156 Int J Environ Res Public Health
+0.7621400520468967 J Korean Med Sci
+0.7621400520468967 Public Health
+0.7688290401976935 Crit Care
+0.7721903879003982 International Journal of Infectious Diseases
+0.7823427593644162 Lancet Respir Med
+0.7925992595316054 Antiviral Research
+0.8001251652319521 J Med Virol
+0.818710403535291 Allergy
+0.8542553409547023 J Virol Methods
+0.8675005677047231 Journal of Theoretical Biology
+0.8908479317017143 Clin Infect Dis
+0.9187938620922735 J Travel Med
+0.9364934391916745 Clin Chem
+0.945462109174435 Lancet Infect Dis
+0.9545119446943529 The Nidoviruses
+0.9545119446943529 Zhonghua Jie He He Hu Xi Za Zhi
+0.9821634760248628 J Clin Virol
+1.0042116132466252 Biochemical and Biophysical Research Communications
+1.0161110671563658 Emerg Microbes Infect
+1.036576897748657 Sci China Life Sci
+1.1332037334377287 J Allergy Clin Immunol
+1.2897727941292687 N Engl J Med
+1.324258970200438 Ann Intern Med
+1.324258970200438 Curr Opin Virol
+1.383897236520169 Travel Med Infect Dis
+1.389499492068839 J Infect Public Health
+1.3970183244828662 Current Opinion in Virology
+1.5030778964431906 Int J Antimicrob Agents
+1.521427035111387 Am J Infect Control
+1.546463113272712 Int J Infect Dis
+1.5606477482646683 Cureus
+1.5606477482646683 J Am Acad Dermatol
+1.611941042652219 Microbes and Infection
+1.6296406197516198 J Hosp Infect
+1.6910095661279119 Sci Total Environ
+1.7037485919053417 J Infect
+1.7672619976276676 Am J Emerg Med
+1.8360685492282434 
+1.8527841710658297 Anesth Analg
+1.870802676568508 Euro Surveill
+1.8838747581358606 Brain Behav Immun
+1.946310229076653 J Microbiol Immunol Infect
+2.122117104849414 Med Hypotheses
+2.1566498861201784 bioRxiv
+2.659260036932778 Diabetes Metab Syndr
