@@ -10,7 +10,7 @@ from nltk.stem import PorterStemmer
 #from readtrec import getAbstract
 
 qrels = []
-for line in open('qrels-rnd1.txt').readlines():
+for line in open('qrels-rnd2.txt').readlines():
 	vals = line.strip().split(" ")
 	#topic, cord_uid, qrel, assessround
 	qrels.append([int(vals[0]), vals[3], float(vals[4]), float(vals[1])])
@@ -28,7 +28,7 @@ for i in range(10):
 	journal_sets.append([])
 
 #for each topic, get all documents 
-for topic in range(1, 31):
+for topic in range(1, 35):
 	docs = qrels[qrels[:,0] == topic]
 	
 	#add these documents to the documents for each task
@@ -48,7 +48,7 @@ def getJournal(cord_id, metadata):
 	
 	return " ".join(journal.split(" ")[4:])
 
-metadata = prepTREC('./docids-rnd1.txt')
+metadata = prepTREC('./docids-rnd3.txt')
 
 for task_id, task_docs in enumerate(doc_sets):
 	for doc in task_docs:
