@@ -17,3 +17,15 @@ tokenized_query = query.split(" ")
 
 doc_scores = bm25.get_scores(tokenized_query)
 print(doc_scores)
+
+
+
+
+
+Wens 'goede klim' traditioneel
+Traditionele groet/gebaar
+
+
+* waterdeep library -    vind Herkan -  stormgiant temple ?
+*  waterdeep library - beren botje 
+* waterdeep library - eland
